@@ -43,14 +43,14 @@ int main() {
     kernel<<<32, 32>>>(dev_arr1, dev_arr2, n);
 
     CSC(cudaDeviceSynchronize());
-	CSC(cudaGetLastError());
+    CSC(cudaGetLastError());
  
     CSC(cudaMemcpy(arr1, dev_arr1, sizeof(double) * n, cudaMemcpyDeviceToHost));
     
-	for(int i = 0; i < n; ++i) {
-		std::cout << arr1[i] << " ";
+    for(int i = 0; i < n; ++i) {
+        std::cout << arr1[i] << " ";
     }
-	std::cout << "\n";
+    std::cout << "\n";
  
     CSC(cudaFree(dev_arr1));
     CSC(cudaFree(dev_arr2));
@@ -58,5 +58,5 @@ int main() {
     delete[] arr1;
     delete[] arr2;
  
-	return 0;
+    return 0;
 }
