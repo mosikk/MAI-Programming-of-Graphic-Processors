@@ -2,21 +2,21 @@
  
 #define CSC(call) \
 do { \
-	cudaError_t status = call; \
-	if (status != cudaSuccess) { \
-		fprintf(stderr, "ERROR is %s:%d. Message: %s\n", __FILE__, __LINE__, cudaGetErrorString(status)); \
-		exit(0); \
-	} \
+    cudaError_t status = call; \
+    if (status != cudaSuccess) { \
+        fprintf(stderr, "ERROR is %s:%d. Message: %s\n", __FILE__, __LINE__, cudaGetErrorString(status)); \
+        exit(0); \
+    } \
 } while(0)
 
 __global__ void kernel(double *arr1, double *arr2, int n) {
-	int idx = blockIdx.x * blockDim.x + threadIdx.x;
-	int offset = blockDim.x * gridDim.x;
- 
-	while (idx < n) {
-		arr1[idx] -= arr2[idx];
-		idx += offset;
-	}
+    int idx = blockIdx.x * blockDim.x + threadIdx.x;
+    int offset = blockDim.x * gridDim.x;
+
+    while (idx < n) {
+        arr1[idx] -= arr2[idx];
+        idx += offset;
+    }
 }
 
  
