@@ -40,24 +40,10 @@ int main() {
     CSC(cudaMalloc(&dev_arr2, sizeof(double) * n));
 	CSC(cudaMemcpy(dev_arr2, arr2, sizeof(double) * n, cudaMemcpyHostToDevice));
 
-    cudaEvent_t start, stop;
-	CSC(cudaEventCreate(&start));
-	CSC(cudaEventCreate(&stop));
-	CSC(cudaEventRecord(start));
-
-	kernel<<<1, 32>>>(dev_arr1, dev_arr2, n);
+	kernel<<<32, 32>>>(dev_arr1, dev_arr2, n);
 
     CSC(cudaDeviceSynchronize());
 	CSC(cudaGetLastError());
-
-    CSC(cudaEventRecord(stop));
-	CSC(cudaEventSynchronize(stop));
-	float t;
-	CSC(cudaEventElapsedTime(&t, start, stop));
-	CSC(cudaEventDestroy(start));
-	CSC(cudaEventDestroy(stop));
-
-	printf("time = %f ms\n", t);
  
     CSC(cudaMemcpy(arr1, dev_arr1, sizeof(double) * n, cudaMemcpyDeviceToHost));
     
