@@ -26,21 +26,21 @@ int main() {
  
     double *arr1 = new double[n];
     double *arr2 = new double[n];
-	for(int i = 0; i < n; i++) {
+    for(int i = 0; i < n; i++) {
         std::cin >> arr1[i];
     }
     for(int i = 0; i < n; i++) {
         std::cin >> arr2[i];
     }
     
-	double *dev_arr1, *dev_arr2;
+    double *dev_arr1, *dev_arr2;
     CSC(cudaMalloc(&dev_arr1, sizeof(double) * n));
-	CSC(cudaMemcpy(dev_arr1, arr1, sizeof(double) * n, cudaMemcpyHostToDevice));
+    CSC(cudaMemcpy(dev_arr1, arr1, sizeof(double) * n, cudaMemcpyHostToDevice));
  
     CSC(cudaMalloc(&dev_arr2, sizeof(double) * n));
-	CSC(cudaMemcpy(dev_arr2, arr2, sizeof(double) * n, cudaMemcpyHostToDevice));
+    CSC(cudaMemcpy(dev_arr2, arr2, sizeof(double) * n, cudaMemcpyHostToDevice));
 
-	kernel<<<32, 32>>>(dev_arr1, dev_arr2, n);
+    kernel<<<32, 32>>>(dev_arr1, dev_arr2, n);
 
     CSC(cudaDeviceSynchronize());
 	CSC(cudaGetLastError());
