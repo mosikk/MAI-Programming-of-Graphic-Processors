@@ -4,11 +4,11 @@
 
 #define CSC(call) \
 do { \
-	cudaError_t status = call; \
-	if (status != cudaSuccess) { \
-		fprintf(stderr, "ERROR is %s:%d. Message: %s\n", __FILE__, __LINE__, cudaGetErrorString(status)); \
-		exit(0); \
-	} \
+    cudaError_t status = call; \
+    if (status != cudaSuccess) { \
+        fprintf(stderr, "ERROR is %s:%d. Message: %s\n", __FILE__, __LINE__, cudaGetErrorString(status)); \
+        exit(0); \
+    } \
 } while(0)
 
 struct point {
@@ -22,11 +22,11 @@ __constant__ double constCovInv[MAX_CLASSES][3][3];
 
 __global__ void kernel(uchar4 *dev_picture, int nc, int w, int h) {
     int idx = blockIdx.x * blockDim.x + threadIdx.x;
-	int offset = blockDim.x * gridDim.x;
+    int offset = blockDim.x * gridDim.x;
 
     // count Mahalanobis distance = argmax[-(ps_minus_avg)^T * cov^(-1) * ps_minus_avg]
     while (idx < w * h) {
-		double cur_max_dist = -1e9;
+        double cur_max_dist = -1e9;
         double cur_max_id = -1;
         uchar4 cur_pixel_value = dev_picture[idx];
 
