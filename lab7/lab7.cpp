@@ -77,15 +77,15 @@ int main(int argc, char *argv[]) {
 
     // выделяем память для значений в сетке
     double* data = (double*)malloc(sizeof(double) * (x_block+2) * (y_block+2) * (z_block+2));	
-	double* next = (double*)malloc(sizeof(double) * (x_block+2) * (y_block+2) * (z_block+2));
+    double* next = (double*)malloc(sizeof(double) * (x_block+2) * (y_block+2) * (z_block+2));
     double* buff = (double*)malloc(sizeof(double) * x_block * y_block * z_block);
 
     // буффер для отправки сообщений
     int buffer_size;
-	MPI_Pack_size((x_block+2) * (y_block+2) * (z_block+2), MPI_DOUBLE, MPI_COMM_WORLD, &buffer_size);
-	buffer_size = 12 * (buffer_size + MPI_BSEND_OVERHEAD);
-	double* buffer = (double*)malloc(buffer_size);
-	MPI_Buffer_attach(buffer, buffer_size);
+    MPI_Pack_size((x_block+2) * (y_block+2) * (z_block+2), MPI_DOUBLE, MPI_COMM_WORLD, &buffer_size);
+    buffer_size = 12 * (buffer_size + MPI_BSEND_OVERHEAD);
+    double* buffer = (double*)malloc(buffer_size);
+    MPI_Buffer_attach(buffer, buffer_size);
 
     // инициализируем блок
     for (int i = 0; i < x_block; ++i) {
