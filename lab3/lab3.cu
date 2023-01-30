@@ -115,7 +115,7 @@ int main() {
     }
 
     // count cov and cov^(-1)
-    double cov[MAX_CLASSES][3][3];
+    double cov[MAX_CLASSES][3][3] = { 0 };
     double cov_inv[MAX_CLASSES][3][3];
     // cov3 = [nc x 3 x 3]
     // 3 x 3 is for rgb pixels matrix
